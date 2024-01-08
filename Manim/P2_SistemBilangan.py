@@ -1,6 +1,10 @@
 %%manim -qm -v WARNING TestB
 config.media_width = "100%"
 
+# Coding ini dijalankan melalui website Google Colab
+# Syntax Tex bisa diubah ke syntax MathTex dengan menghilangkan $$, 
+# namun dengan kekurangan font-size string MathTex tidak fleksibel 
+
 class TestB(Scene):
    def construct(self):
     symbol = Tex(r'$\mathbb{N}$', color=YELLOW).shift(LEFT*4)
