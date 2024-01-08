@@ -31,7 +31,7 @@ class TestC(Scene):
     )
     self.wait(2)
 
-# Beberapa bentuk pembagian: a/bb = a \div  = {a\over b} = frac{a}{b}
+# Beberapa bentuk pembagian: a/b = a \div  = {a\over b} = frac{a}{b}
     od3 = Tex("atau\\", r" 72 / 12 = 6").next_to(od1, DOWN)
     self.play(
         Transform(text, Text("Pembagian").shift(UP*2)),
@@ -53,7 +53,7 @@ class TestC(Scene):
     ot4 = Tex(r"$ 5^{-1} = \frac{1}{5} $").shift(RIGHT*4+DOWN*3)
     b = Brace(mobject=ot1d, direction=DOWN, buff=0.2)
     b_ot1 = b.get_text("berulang sampai nx").next_to(b, DOWN)
-    b_ot1.set_color(YELLOW)
+    b_ot1[0][14].set_color(YELLOW)
     self.play(
         Transform(text, Text("Perpangkatan").shift(UP*3)),
         Write(ot1), Write(ot1d)
@@ -63,3 +63,31 @@ class TestC(Scene):
     self.play(Write(ot3), run_time=0.5)
     self.play(Write(ot2), run_time=0.5)
     self.wait(2)
+    self.play(FadeOut(b), Uncreate(b_ot1), Unwrite(ot2), Unwrite(ot3), Unwrite(ot4), run_time=0.5)
+    self.remove(b, b_ot1, ot2, ot3, ot4)
+
+    ol1 = MathTex(r"\sqrt[n]{b} = ").shift(LEFT*3+UP)
+    ol1d = MathTex(r"{(2\times2\times2\times2\times2\times \cdots)}^{1\over n}").next_to(ot1, RIGHT)
+    ol1[0][0].set_color(YELLOW)
+    ol1d[0][17].set_color(YELLOW)
+    ol2 = Tex(r"$ \sqrt[5]{32} = 2 $").shift(LEFT*2+DOWN*3)
+    ol3 = Tex(r"$ \sqrt{(4)^{-1}} = \frac{1}{2} $").shift(RIGHT*2+DOWN*3)
+    b_ol1 = b.get_text("berulang sampai nx").next_to(b, DOWN)
+    b_ol1[0][14].set_color(YELLOW)
+    self.play(
+        Transform(text, Text("Bentuk Akar").shift(UP*3)),
+        Transform(ot1, ol1),
+        Transform(ot1d, ol1d)
+    )
+    self.play(GrowFromCenter(b), Create(b_ol1), run_time=1.5)
+    self.play(Write(ol3), run_time=0.5)
+    self.play(Write(ol2), run_time=0.5)
+    self.wait(2)
+    self.play(FadeOut(b), Uncreate(b_ol1), Unwrite(text), Unwrite(ot1), Unwrite(ot1d), Unwrite(ol2), Unwrite(ol3), run_time=0.5)
+    self.remove(b, b_ol1, text, ot1, ot1d, ol2, ol3)
+
+    symbolC = MathTex(r"\lim_{x\to\infty} ?\  \frac{d}{dx} ?\ \int_{a}^{b} ?\ ", color=TEAL)
+    textC = Text("sebaiknya tanya komputer", font_size=20).shift(DOWN*2)
+    self.play(FadeIn(symbolC, run_time=2))
+    self.play(Write(textC))
+    self.wait(1.5)
