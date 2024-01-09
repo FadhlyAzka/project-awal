@@ -62,7 +62,7 @@ class TestD(Scene):
       self.play(
           FadeOut(text), 
           FadeOut(textD),
-          Transform(textD[1].copy(), Tex(r"$\mathbb{R}^2$", color=TEAL)),
+          Transform(textD[1].copy(), Tex(r"$\mathbb{R}^2$\ ?", color=TEAL)),
           run_time=2
       )
       self.play(Write(textC))
