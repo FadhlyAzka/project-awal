@@ -31,7 +31,7 @@ class TestC(Scene):
     )
     self.wait(2)
 
-# Beberapa bentuk pembagian: a/b = a \div b = {a\over b} = frac{a}{b}
+# Beberapa bentuk pembagian: a/b = a \div b = {a\over b} = \frac{a}{b}
     od3 = Tex("atau\\", r" 72 / 12 = 6").next_to(od1, DOWN)
     self.play(
         Transform(text, Text("Pembagian").shift(UP*2)),
