@@ -5,7 +5,8 @@ def pesanan_makanan(menu):
         print(f"Anda memesan menu makanan {menu[0]} sebanyak {menu[1]}")
     else:
         print(f"Anda memesan menu makanan {menu[0]} sebanyak {menu[1]} pesanan dengan topping ekstra:")
-        for ekstra in menu[2:]:
+        topping = menu[2].split(", ")
+        for ekstra in topping:
             print(f"- {ekstra}")
     
     biaya_makanan = 1
@@ -17,7 +18,8 @@ def pesanan_makanan(menu):
         biaya_makanan = biaya_makanan * menu[1] * 6
     
     if menu[2] != "":
-        biaya_makanan = biaya_makanan + (len(menu) - 2) * 3
+        biaya_topping = menu[2].split(", ")
+        biaya_makanan = biaya_makanan + len(biaya_topping) * 3
     
     return biaya_makanan
 
