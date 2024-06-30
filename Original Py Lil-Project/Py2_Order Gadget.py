@@ -83,13 +83,14 @@ def system_filter(unit, nom):
             if model[1] < nom:
                 print ("REKOMENDASI : {} dengan harga Rp.{}".format(model[0], model[1]))
     print("----————————————————----")
-    
 
 def specs():
     opsi_produk = ['Poco X6 5G','Vivo Y100 5G','Poco M6 Pro','Realme C67','Oppo A77s','Redmi Note 10S','Tecno Pova 4']
+    produk_pesan = []
 
     while True:
         view_spec = input("Silahkan dipilih : ")
+        produk_pesan.append(view_spec)
         if view_spec not in opsi_produk:
             print("Produk yang Anda cari tidak tersedia di toko kami.")
         else:
@@ -99,8 +100,10 @@ def specs():
                 if view_spec == brand[0]:
                     for spec in brand[1].items():
                         print("> {} : {}".format(spec[0], spec[1]))
+                        if 'Price (Rp.)' == spec[0]:
+                            produk_pesan.append(spec[1])
             
-            break
+            return produk_pesan
 
 def uang_dompet():
     while True:
@@ -132,10 +135,12 @@ def order():
 
     print("Anda juga bisa melihat spesifikasi dari untuk gadget yang Anda mungkin tertarik.")
     while True:
-        specs()
+        produk_beli = specs()
         print("----————————————————----")
         konfirmasi = input("Apakah Anda yakin dengan pilihan Anda? ")
         if konfirmasi == "ya":
+            kembalian = nominal - produk_beli[1]
+            print("Terima kasih telah membeli produk {} kami, dengan kembalian Rp.{}. Harap kembali.".format(produk_beli[0], kembalian)")
             break
 
 order()
