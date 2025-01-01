@@ -1,0 +1,330 @@
+\begin{sloppypar}
+Model regresi linier berganda merupakan suatu persamaan yang menggambarkan hubungan antara dua atau lebih variabel bebas/predictor ($X_1, X_2, ..., X_n$) dan satu variabel tak bebas/response (Y). Tujuan dari analisis regresi linier sederhana adalah untuk memprediksi nilai variabel terikat (Y) jika nilai variabel-variabel bebas ($X_1, X_2, ..., X_n$) diketahui, serta mengetahui arah hubungan antara variabel tak bebas dengan variabel-variabel bebas.
+\\Asumsi-asumsi yang harus dipenuhi agar model dapat dinyatakan valid:
+\begin{enumerate}
+    \item[$\bullet$] $\beta_i$ untuk i = 0, 1, 2, ..., n adalah parameter yang belum diketahui.
+    \item[$\bullet$] X adalah variabel bebas/predictor (independen) yang diatur tanpa error.
+    \item[$\bullet$] Y adalah variabel tak bebas/response (dependen) yang digunakan sebagai prediksi berdasarkan nilai variabel X.
+    \item[$\bullet$] $\epsilon$ adalah komponen error random yang saling bebas dan mempunyai distribusi normal dengan rata-rata dan varian ($\sigma^2$) yang ditentukan berdasarkan nilai data variabel tak bebas.
+    \item[$\bullet$] Hubungan variabel X dan Y adalah linier.
+\end{enumerate}
+\end{sloppypar}
+
+\noindent Bentuk Umum Model Regresi Linier Berganda:
+\begin{equation}
+    Y = \beta_{0} + \beta_{1}X_1 + \beta_{2}X_2 + \cdots + \beta_{n}X_n + \epsilon
+    \label{eq3}
+\end{equation}
+Bentuk Umum Estimasi Model Regresi Berganda: 
+\begin{equation}
+    \hat{Y} = \widehat{\beta_{0}} + \widehat{\beta_{1}}X_1 + \widehat{\beta_{2}}X_2 + \cdots + \widehat{\beta_{n}}X_n
+    \label{eq4}
+\end{equation}
+\begin{test}{
+    Pada Tabel Coefficients, pada kolom Unstandardized B, dapat diperoleh : \\
+    $\beta_0$ = -5.993, $\beta_1$ = 0.096, $\beta_2$ = 0.084 \\
+    Maka persamaan regresi sebagai berikut : \\
+    \begin{equation*}
+        \hat{Y} = -5.993 + 0.096 X_1 + 0.084 X_2
+    \end{equation*}
+}
+library(car)
+library(GGally)
+library(ggplot2)
+library(lmtest)
+library(nortest)
+library(readxl)
+library(zoo)
+
+data_Yogya <- readxl::read_excel("D:\\FAR - FadhZ\\M.Excel\\Data Tahap Satu STIS Yogyakarta.xlsx")
+View(data_Yogya)
+Y <- data_Yogya$TJ_TKP
+X1 <- data_Yogya$ln_TWK
+X2 <- data_Yogya$ln_TIU
+
+pairs(data_Yogya)
+ggpairs(data_Yogya)
+
+regresi <- lm(Y~X1 + X2, data = data_Yogya)
+summary(regresi)
+\end{test}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item Uji Asumsi
+
+    \begin{enumerate}
+    \def\labelenumii{(\alph{enumii})}
+    \tightlist
+    \item Uji Normalitas \\
+    \begin{test}{
+        \begin{enumerate}
+        \item[-] Rumusan hipotesis \\
+        \begin{fleqn}[\parindent]
+            \begin{equation*}
+            \begin{split}
+            &H_0 : \text{(data) nilai residual berdistribusi normal} \\ 
+            &H_1 : \text{(data) nilai residual tidak berdistribusi normal} \\
+            \end{split}
+            \end{equation*}
+        \end{fleqn}
+    
+        \item[-] Taraf Signifikansi \\
+        $\alpha = 0.05$
+    
+        \item[-] Statistik Uji \\
+        Pada Tabel Tests of Normality, dapat diperoleh: \\
+        Nilai sig K-S = 0.200
+    
+        \item[-] Daerah Kritis \\
+        $H_0$ ditolak jika nilai sig K-S $< \alpha$
+    
+        \item[-] Keputusan \\
+        $H_0$ gagak ditolak karena nilai signifikansi Kolmogorov-Smirnov $< \alpha$, yaitu $0.200 > 0.05$
+    
+        \item[-] Kesimpulan \\
+        Pada taraf signifikansi 5\%, $H_0$ gagal ditolak sehingga residual data berdistribusi normal menurut uji Kolmogorov-Smirnov
+    \end{enumerate}
+    }
+shapiro.test(regresi$residuals)
+nortest::lillie.test(regresi$residuals)
+plot(regresi, 2)
+    \end{test}
+
+    \item Uji Linieritas \\
+    \noindent Untuk mendeteksi ada tidaknya liniearitas dalam model regresi dapat dilihat dari p-value Rainbow Test dengan software R.
+    \begin{test}{
+        \begin{enumerate}
+        \item[-] Rumusan hipotesis \\
+        \begin{fleqn}[\parindent]
+            \begin{equation*}
+            \begin{split}
+            &H_0 : \text{Residual regresi memiliki pola data linier} \\ 
+            &H_1 : \text{Residual regresi memiliki pola data tidak linier} \\
+            \end{split}
+            \end{equation*}
+        \end{fleqn}
+    
+        \item[-] Taraf Signifikansi \\
+        $\alpha = 0.05$
+    
+        \item[-] Statistik Uji \\
+        Pada output Rainbow Test, dapat diperoleh: \\
+        Nilai koefisien Rainbow = 1.5545, Nilai p-value = 0.003496
+    
+        \item[-] Daerah Kritis \\
+        $H_0$ ditolak jika p-value $< \alpha$
+    
+        \item[-] Keputusan \\
+        $H_0$ ditolak karena p-value $< \alpha$, yaitu $0.003496 < 0.05$
+    
+        \item[-] Kesimpulan \\
+        Pada taraf signifikansi 5\%, $H_0$ ditolak sehingga residual regresi memiliki pola data tidak linier
+    \end{enumerate}
+    }
+plot(regresi, 1)
+rain_test <- raintest(regresi)
+print(rain_test)
+    \end{test}
+
+    \item Uji Homoskedastisitas \\
+    \begin{test}{
+        \begin{enumerate}
+        \item[-] Rumusan hipotesis \\
+        \begin{fleqn}[\parindent]
+            \begin{equation*}
+            \begin{split}
+            &H_0 : \text{Residual regresi homoskedastisitas} \\ 
+            &H_1 : \text{Residual regresi heteroskedastisitas} \\
+            \end{split}
+            \end{equation*}
+        \end{fleqn}
+    
+        \item[-] Taraf Signifikansi \\
+        $\alpha = 0.05$
+    
+        \item[-] Statistik Uji \\
+        Pada Tabel Coefficients dari regresi variable X dengan mutlak residual regresi variabel X dan Y, dapat diperoleh: \\
+        Nilai sig = 0.000
+    
+        \item[-] Daerah Kritis \\
+        $H_0$ ditolak jika nilai sig $< \alpha$
+    
+        \item[-] Keputusan \\
+        $H_0$ ditolak karena nilai signifikansi $< \alpha$, yaitu $0.000 < 0.05$
+    
+        \item[-] Kesimpulan \\
+        Pada taraf signifikansi 5\%, $H_0$ ditolak sehingga residual regresi heteroskedastisitas
+    \end{enumerate}
+    }
+par(mfrow = c(2, 2))
+plot(regresi, 3)
+glejser_test <- lm(abs(regresi$residuals)~X1 + X2, data = data_Yogya)
+summary(glejser_test)
+    \end{test}
+    
+    \item Uji Autokorelasi \\
+    \begin{test}{
+        \begin{enumerate}
+        \item[-] Rumusan hipotesis \\
+        \begin{fleqn}[\parindent]
+            \begin{equation*}
+            \begin{split}
+            &H_0 : \text{(data) tidak terdapat autokorelasi} \\ 
+            &H_1 : \text{(data) terdapat autokorelasi} \\
+            \end{split}
+            \end{equation*}
+        \end{fleqn}
+    
+        \item[-] Taraf Signifikansi \\
+        $\alpha = 0.05$
+    
+        \item[-] Statistik Uji \\
+        Pada Tabel Model Summary, dapat diperoleh : \\
+        Nilai d = 1.795
+    
+        \item[-] Daerah Kritis \\
+        Pengambilan keputusan ada/tidaknya autokorelasi disajikan pada :
+        \begin{enumerate}
+        \item[$\square$] $0 < d < dl$ (menolak $H_0$, autokorelasi positif)
+        \item[$\square$] $dl < d < du$ (daerah ragu-ragu)
+        \item[$\square$] $du < d < 4-du$ (menerima $H_0$, atau tidak ada autokorelasi)
+        \item[$\square$] $4-du < d < 4-dl$ (daerah ragu-ragu)
+        \item[$\square$] $4-dl < d < 4$ (menolak $H_0$, autokorelasi negatif)
+        \end{enumerate}
+        dengan, \\
+        n (jumlah data) = 306, k (variabel) = 2, dl = 1.804, du = 1.817, 4-du = 2.183, 4-dl = 2.196
+    
+        \item[-] Keputusan \\
+        $H_0$ ditolak karena 0 $<$ nilai Durbin-Watson $<$ dl, yaitu $0 < 1.795 < 1.804$
+    
+        \item[-] Kesimpulan \\
+        Pada taraf signifikansi 5\%, $H_0$ ditolak sehingga terdapat autokorelasi positif antar residual variabel X dan Y
+    \end{enumerate}
+    }
+lmtest::dwtest(regresi)
+    \end{test}
+
+    \item Uji Multikolinieritas \\
+    \begin{sloppypar}
+        Uji multikolinearitas bertujuan untuk menguji apakah pada model regresi ditemukan adanya korelasi antar variabel independen. Pada model regresi yang baik seharusnya antar variabel independen tidak terjadi kolerasi. Untuk mendeteksi ada tidaknya multikoliniearitas dalam model regresi dapat dilihat dari Tolerance value atau Variance Inflation Factor (VIF). Sebagai dasar acuannya dapat disimpulkan:
+    \begin{itemize}
+        \item Jika nilai tolerance $>$ 10 persen dan nilai VIF $<$ 10, maka dapat disimpulkan bahwa tidak ada multikolinearitas antar variabel independen dalam model regresi.
+        \item Jika nilai tolerance $<$ 10 persen dan nilai VIF $>$ 10, maka dapat disimpulkan bahwa ada multikolinearitas antar variabel independen dalam model regresi.
+    \end{itemize}
+    \end{sloppypar}
+    \begin{test}{
+        Pada Tabel Coefficients, dapat diperoleh : \\
+        Tolerance 1 = 0.884, Tolerance 2 = 0.884, VIF 1 = 1.134, VIF 2 = 1.134
+    }
+vif(regresi)
+    \end{test}
+
+    \end{enumerate}
+
+\item Uji Kecocokan Model \\
+\begin{test}{
+    \begin{enumerate}
+    \item[-] Rumusan hipotesis \\
+    \begin{fleqn}[\parindent]
+        \begin{equation*}
+        \begin{split}
+        &H_0 : \beta_0 = \beta_1 = \beta_2 = 0 \\ 
+        &H_1 : \beta_i \neq 0 \text{, paling sedikit 1 untuk i = 0, 1, 2} \\
+        \end{split}
+        \end{equation*}
+    \end{fleqn}
+    Interpretasi:
+    \begin{enumerate}
+    \item[$\square$] $H_0$ didefinisikan model regresi tidak cocok
+    \item[$\square$] $H_1$ didefinisikan model regresi cocok
+    \end{enumerate}
+
+    \item[-] Taraf Signifikansi \\
+    $\alpha = 0.05$
+
+    \item[-] Statistik Uji \\
+    Pada Tabel Model ANOVA, dapat diperoleh : \\
+    F-hitung = 17.706, Nilai sig = 0.000 \\
+    Berdasarkan tabel F didapat : \\
+    F-tabel = $F_{\alpha, k, n-k-1}$ = $F_{0.05; 2; 303}$ = 3.025547
+
+    \item[-] Daerah Kritis \\
+    $H_0$ ditolak jika $F_0 > F_{\alpha, k, n-k-1}$ atau nilai sig $< \alpha$
+
+    \item[-] Keputusan \\
+    $H_0$ ditolak karena $F_0 > F_{\alpha, k, n-k-1}$, yaitu $17.706 > 3.025547$
+
+    \item[-] Kesimpulan \\
+    Pada taraf signifikansi 5\%, $H_0$ ditolak sehingga model regresi cocok memiliki parameter $\beta$ yang tak nol di paling tidak salah satu parameter
+\end{enumerate}
+}
+summary(regresi)
+\end{test}
+
+\item Uji Signifikansi Parameter \\
+\begin{test}{
+    \begin{enumerate}
+    \item[-] Rumusan hipotesis \\
+    \begin{fleqn}[\parindent]
+        \begin{equation*}
+        \begin{split}
+        &H_0 : \beta_i = 0 \text{, paling sedikit 1 untuk i = 0, 1, 2} \\ 
+        &H_1 : \beta_i \neq 0 \text{, paling sedikit 1 untuk i = 0, 1, 2}\\
+        \end{split}
+        \end{equation*}
+    \end{fleqn}
+    Interpretasi:
+    \begin{enumerate}
+    \item[$\square$] $H_0$ didefinisikan koefisien parameter tidak sesuai
+    \item[$\square$] $H_1$ didefinisikan koefisien parameter sesuai
+    \end{enumerate}
+
+    \item[-] Taraf Signifikansi \\
+    $\alpha = 0.05$
+
+    \item[-] Statistik Uji \\
+    Pada Tabel Model ANOVA, dapat diperoleh : \\
+    t-hitung 0 = -5.097, t-hitung 1 = 2.273, t-hitung 2 = 4.164, Nilai sig 0 = 0.000, Nilai sig 1 = 0.024, Nilai sig 2 = 0.000 \\
+    Berdasarkan tabel t didapat : \\
+    t-tabel = $t_{\alpha/2, n-k-1}$ = $t_{0.025; 303}$ = 1.9678
+
+    \item[-] Daerah Kritis \\
+    $H_0$ ditolak jika $|t_0| > t_{\alpha, n-k-1}$ atau nilai sig $< \alpha$
+
+    \item[-] Keputusan \\
+    $$\begin{array}{lllll}
+        \hline 
+        \text{Variabel} & \text{Nilai t} & \text{Sig} & \text{Keputusan}  \\
+        \hline 
+        t_0 & -5.097 & 0.000 & H_0 \text{ ditolak} \\
+        t_1 & 2.273 & 0.024 & H_0 \text{ ditolak} \\
+        t_2 & 4.164 & 0.000 & H_0 \text{ ditolak} \\
+        \hline
+    \end{array}$$
+
+    \item[-] Kesimpulan \\
+    Pada taraf signifikansi 5\%, $H_0$ ditolak untuk koefisien parameter $\beta_0$, $\beta_1$ dan $\beta_2$ yang tak nol sehingga variabel X berpengaruh signifikan terhadap variabel Y
+\end{enumerate}
+}
+summary(regresi)
+\end{test}
+
+\item Koefisien Korelasi \\
+\begin{test}{
+    Pada Tabel Model Summary, dapat diperoleh : \\
+    r = 0.313
+}
+summary(regresi)
+\end{test}
+
+\item Koefisien Determinasi \\
+\begin{test}{
+    Pada Tabel Model Summary, dapat diperoleh : \\
+    $R^2$ = 0.098
+}
+summary(regresi)
+\end{test}
+
+\end{enumerate}
