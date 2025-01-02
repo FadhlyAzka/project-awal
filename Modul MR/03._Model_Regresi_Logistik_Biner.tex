@@ -1,0 +1,181 @@
+\begin{sloppypar}
+Data biner merupakan data yang hanya memiliki dua kemungkinan hasil yang secara umum dilambangkan dengan (sukses) dan (gagal) dengan peluang masing-masing sebesar p dan q = 1 - p. Model regresi logistik biner merupakan suatu metode analisis data yang digunakan untuk mencari hubungan antara variabel terikat (Y) yang bersifatbiner atau dikotomus dengan beberapa variabel bebas/predictor ($X_1, X_2, ..., X_n$).
+Tujuan dari analisis regresi logistik biner adalah untuk menganalisis hubungan antara variabel terikat (Y) dengan beberapa variabel bebas/predictor ($X_1, X_2, ..., X_n$), dengan variabel terikat (Y) berupa data kualitatif dikotomi yaitu bernilai 1 untuk menyatakan keberadaan sebuah karakteristik dan bernilai 0 untuk menyatakan ketidakberadaan sebuah karakteristik.
+\\ Fungsi logistik standar atau dengan nama lain fungsi sigmoid yang didefinisikan sebagai $$f(x) = \frac{1}{1 + e^{-x}}$$
+\\ Kemudian untuk membentuk model regresi logistik maka dilakukan transformasi logit dengan didefinisikan sebagai $$g(x) = \text{ln}\Big( {\frac{\pi_i}{1 - \pi_i}} \Big)$$
+\\ Model regresi logistik diperoleh dari fungsi logistik dengan didefinisikan sebagai $$\pi(x) = \frac{e^{(\beta_0\ +\ \beta_1 x_{1i}\ +\ \cdots\ +\ \beta_p x_{pi})}}{1 + e^{(\beta_0\ +\ \beta_1 x_{1i}\ +\ \cdots\ +\ \beta_p x_{pi})}}$$
+\end{sloppypar}
+\begin{test}{
+    Pada Tabel Variables in the Equation, dapat diperoleh : \\
+    $\beta_0$ = 0.994, $\beta_1$ = -0.264, $\beta_2$ = -0.110, $\beta_3$ = -0.940, $\beta_4$ = -0.569 \\
+    Maka persamaan regresi sebagai berikut : \\
+    \begin{equation*}
+        \pi(x) = \frac{e^{0.994 - 0.264 x_1 - 0.110 x_2 - 0.940 x_3 - 0.569 x_4}}{1 + e^{0.994 - 0.264 x_1 - 0.110 x_2 - 0.940 x_3 - 0.569 x_4}}
+    \end{equation*}
+}
+\end{test}
+
+\begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \tightlist
+    \item Uji Simultan
+    \begin{sloppypar}
+    Uji Rasio Likelihood adalah uji hipotesis yang membandingkan dua estimasi likelihood maksimum suatu parameter guna memutuskan apakah untuk menolak atau tidak menolak pembatasan pada parameter. $$G = -2\ \text{ln} \Big( \frac{L_0}{L_k} \Big)$$
+    dengan, \\$L_k$ = likelihood model yang terdiri dari k variabel/peubah \\$L_0$ = likelihood model yang hanya terdiri atas $\beta_0$
+    \end{sloppypar}
+    \begin{test}{
+    \begin{enumerate}
+        \item[-] Rumusan hipotesis \\
+        \begin{fleqn}[\parindent]
+            \begin{equation*}
+            \begin{split}
+            &H_0 : \beta_1 = \beta_2 = \beta_3 = 0 \\ 
+            &H_1 : \beta_i \neq 0 \text{, paling sedikit 1 untuk i = 1, 2, 3} \\
+            \end{split}
+            \end{equation*}
+        \end{fleqn}
+        Interpretasi:
+        \begin{enumerate}
+        \item[$\square$] $H_0$ didefinisikan secara simultan variabel bebas/prediktor tidak berpengaruh terhadap variabel respon
+        \item[$\square$] $H_1$ didefinisikan secara simultan variabel bebas/prediktor berpengaruh terhadap variabel respon
+        \end{enumerate}
+    
+        \item[-] Taraf Signifikansi \\
+        $\alpha = 0.05$
+    
+        \item[-] Statistik Uji \\
+        Pada Tabel Omnibus Tests of Model Coefficients, dapat diperoleh : \\
+        G = 21.593, Nilai sig = 0.000 \\
+        Berdasarkan tabel F didapat : \\
+        $\chi$-tabel = $\chi_{\alpha, k}^2$ = $\chi_{0.05; 2}$ = 9.488
+    
+        \item[-] Daerah Kritis \\
+        $H_0$ ditolak jika $G > \chi_{\alpha, k}^2$ atau nilai sig $< \alpha$
+    
+        \item[-] Keputusan \\
+        $H_0$ ditolak karena $G > \chi_{\alpha, k}^2$, yaitu $21.593 > 9.488$
+    
+        \item[-] Kesimpulan \\
+        Pada taraf signifikansi 5\%, $H_0$ ditolak sehingga secara simultan variabel bebas/prediktor berpengaruh terhadap variabel respon
+    \end{enumerate}
+    }
+    \end{test}
+    
+    \item Uji Parsial
+    \begin{sloppypar}
+        Uji Wald adalah uji hipotesis yang biasanya dilakukan pada parameter yang telah diperkirakan dengan likelihood maksimum. Uji Wald bertujuan untuk menguji pengaruh koefisien regresi pada model secara terpisah. $$W_j = \Bigg( \frac{\hat{\beta}_j}{SE(\hat{\beta}_j)} \Bigg)^2$$
+        dengan, \\$\hat{\beta}_j$ = nilai koefiesien regresi ke-j \\$SE(\hat{\beta}_j)$ = standard error dari nilai koefiesien regresi ke-j
+    \end{sloppypar}
+    \begin{test}{
+    \begin{enumerate}
+        \item[-] Rumusan hipotesis \\
+        \begin{fleqn}[\parindent]
+            \begin{equation*}
+            \begin{split}
+            &H_0 : \beta_i = 0 \text{, untuk setiap i = 1, 2, 3, 4} \\ 
+            &H_1 : \beta_i \neq 0 \text{, untuk setiap i = 1, 2, 3, 4} \\
+            \end{split}
+            \end{equation*}
+        \end{fleqn}
+        Interpretasi:
+        \begin{enumerate}
+        \item[$\square$] $H_0$ didefinisikan variabel bebas/prediktor tidak signifikan terhadap model
+        \item[$\square$] $H_1$ didefinisikan variabel bebas/prediktor signifikan terhadap model
+        \end{enumerate}
+    
+        \item[-] Taraf Signifikansi \\
+        $\alpha = 0.05$
+    
+        \item[-] Statistik Uji \\
+        Pada Tabel Variables in the Equation, dapat diperoleh : \\
+        $W_1$ = 0.454, $W_2$ = 0.088, $W_3$ = 8.618, $W_4$ = 4.106, Nilai sig = 0.000 \\
+        Berdasarkan tabel F didapat : \\
+        $\chi$-tabel = $\chi_{\alpha, k}^2$ = $\chi_{0.05; 1}$ = 3.841
+    
+        \item[-] Daerah Kritis \\
+        $H_0$ ditolak jika $W_j > \chi_{\alpha, k}^2$ atau $|W_j^*| > Z_{\frac{\alpha}{2}}$ atau nilai sig $< \alpha$
+    
+        \item[-] Keputusan \\
+        $$\begin{array}{lllll}
+            \hline 
+            \text{Variabel} & \text{Nilai t} & \text{Sig} & \text{Keputusan}  \\
+            \hline 
+            W_1 & 0.454 & 0.501 & H_0 \text{ gagal ditolak} \\
+            W_2 & 0.088 & 0.767 & H_0 \text{ gagal ditolak} \\
+            W_3 & 8.618 & 0.003 & H_0 \text{ ditolak} \\
+            W_4 & 4.106 & 0.043 & H_0 \text{ ditolak} \\
+            \hline
+        \end{array}$$
+    
+        \item[-] Kesimpulan \\
+        Pada taraf signifikansi 5\%, variabel Tingkat Pendidikan (1) dan (2) $H_0$ tidak ditolak, sehingga dapat disimpulkan bahwa variabel Tingkat Pendidikan (1) dan (2) tidak signifikan terhadap model. Sedangkan 2 variabel lainnya $H_0$ ditolak, sehingga disimpulkan bahwa variabel Jumlah Jam Belajar dan Jenis Kelamin signifikan terhadap model.
+    \end{enumerate}
+    }
+    \end{test}
+    
+    \item Uji Hosmer-Lemeshow Goodness-of-Fit
+    \begin{sloppypar}
+        Uji Hosmer-Lemeshow goodness-of-fit adalah uji statistik untuk goodness-of-fit dan kalibrasi model regresi logistik. Uji Hosmer-Lemeshow goodness-of-fit bertujuan untuk menentukan apakah prediksi yang buruk (kurangnya kesesuaian) signifikan, yang menunjukkan adanya masalah dengan model. $$\hat{C} = \sum_{b=1}^{g} \frac{(o_b\ - n_b'\ \bar{\pi}_b)^2}{n_b'\ \bar{\pi}_b (1 - \bar{\pi}_b)}$$
+        dimana $o_b = \sum_{i=1}^{n_b'} y_i$ dan $\bar{\pi}_b = \sum_{i=1}^{n_b'} \frac{\bar{m_i\ \pi}_i}{n_b'}$
+        dengan, \\g = banyaknya grub \\$n_b'$ = banyaknya obeservasi ke-b\\$o_b$ = observasi ke-b \\$\bar{\pi}_b$ = probabilitas rata-rata estimasi
+    \end{sloppypar}
+    \begin{test}{
+    \begin{enumerate}
+        \item[-] Rumusan hipotesis \\
+        \begin{fleqn}[\parindent]
+            \begin{equation*}
+            \begin{split}
+            &H_0 : \text{Model sesuai (observasi dan prediksi tidak berbeda)} \\ 
+            &H_1 : \text{Model tidak sesuai (observasi dan prediksi berbeda)} \\
+            \end{split}
+            \end{equation*}
+        \end{fleqn}
+    
+        \item[-] Taraf Signifikansi \\
+        $\alpha = 0.05$
+    
+        \item[-] Statistik Uji \\
+        Pada Tabel Hosmer and Lemeshow Test, dapat diperoleh : \\
+        C = 14.132, Nilai sig = 0.000 \\
+        Berdasarkan tabel F didapat : \\
+        $\chi$-tabel = $\chi_{\alpha, k}^2$ = $\chi_{0.05; 6}$ = 12.592
+    
+        \item[-] Daerah Kritis \\
+        $H_0$ ditolak jika $C > \chi_{\alpha, k}^2$ atau nilai sig $< \alpha$
+    
+        \item[-] Keputusan \\
+        $H_0$ ditolak karena $GC > \chi_{\alpha, k}^2$, yaitu $14.132 > 12.592$
+    
+        \item[-] Kesimpulan \\
+        Pada taraf signifikansi 5\%, $H_0$ ditolak sehingga model tidak sesuai (observasi dan prediksi berbeda).
+    \end{enumerate}
+    }
+    \end{test}
+    
+    \item Odds Ratio
+    \begin{sloppypar}
+        Odds ratio adalah rasio peluang terjadinya suatu peristiwa dalam satu kelompok dibandingkan dengan peluang terjadinya peristiwa tersebut dalam kelompok lain. $$\theta = e^{\beta}$$
+        Artinya risiko terjadinya Y = 1 pada kategori X = 1 adalah sebesar $e^{\beta}$ kali odds risiko terjadinya Y = 1 pada X = 0.
+    \end{sloppypar}
+    \begin{test}{
+        Pada Tabel Variables in the Equation, dapat diperoleh : \\
+        $e^{\beta}$ = 1.140
+    }
+    \end{test}
+    
+    \item Keakuraten Model
+    \\Pengelompokkan suatu objek dilakukan berdasarkan pada nilai peluang logistiknya.
+    \begin{itemize}
+        \item Alokasikan objek tersebut ke dalam kelompok 1 (Y = 1), jika $\hat{p}_i > \frac{1}{2}$
+        \item Alokasikan objek tersebut ke dalam kelompok 2 (Y = 0), jika $\hat{p}_i \leq \frac{1}{2}$
+    \end{itemize}
+    \begin{sloppypar}
+        Keakuratan model yang terbentuk ditentukan oleh suatu ukuran yang dinamakan hit ratio, yang didefinisikan sebagai $$\text{hit ratio} = \frac{\text{banyak objek yang diklasifikasikan benar}}{\text{total banyak pengamatan}} \times 100\%$$
+    \end{sloppypar}
+    \begin{test}{
+        Pada Tabel Classification Tables, dapat diperoleh : \\
+        hit ratio = 63.3\%
+    }
+    \end{test}
+
+\end{enumerate}
