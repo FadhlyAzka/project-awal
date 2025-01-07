@@ -1,0 +1,155 @@
+\begin{sloppypar}
+Data ordinal merupakan data yang memiliki variabel hasil yang bersifat kategorik, memuat informasi tambahan berupa urutan kategori. Model regresi logistik ordinal merupakan suatu metode analisis data yang digunakan untuk mencari hubungan antara variabel terikat (Y) yang bersifat ordinal (memiliki tingkatan atau urutan), dengan beberapa variabel bebas/predictor ($X_1, X_2, ..., X_n$). 
+Tujuan dari analisis regresi logistik ordinal adalah untuk menganalisis hubungan antara satu variabel terikat (Y) dan beberapa variabel bebas/predictor ($X_1, X_2, ..., X_n$), dengan variabel terikat (Y) berupa data kualitatif berskala ordinal yang mempunyai kategori lebih dari 2.
+\\ Dari model logit dengan didefinisikan sebagai 
+\begin{align*}
+\text{logit}(P(Y \leq j|X)) &= \text{log} \bigg( \frac{P(Y \leq j|X)}{P(Y > j|X)} \bigg) \\ &= \alpha_j\ -\ \beta_{1} x_1\ -\ \cdots\ -\ \beta_{p} x_p 
+\end{align*}
+untuk j = (1, ..., J). Maka model regresi logistik ordinal dapat dinyatakan sebagai $$P(Y \leq j|X) = \frac{e^{(\alpha_j\ -\ \beta_{1} x_1\ -\ \cdots\ -\ \beta_{p} x_p)}}{1 + e^{(\alpha_j\ -\ \beta_{1} x_1\ -\ \cdots\ -\ \beta_{p} x_p)}}$$
+\end{sloppypar}
+\begin{test}{
+    Pada Tabel Parameter Estimates, dapat diperoleh : \\
+    $\beta_{10}$ = -1.618, $\beta_{11}$ = -0.681, $\beta_{12}$ = 0.438, $\beta_{13}$ = 1.285 \\
+    $\beta_{20}$ = -0.497, $\beta_{21}$ = 0, $\beta_{22}$ = -0.167, $\beta_{23}$ = 0, $\beta_{24}$ = 0.154, $\beta_{25}$ = 0 \\
+    Maka persamaan regresi sebagai berikut : \\
+    \begin{equation*}
+    \begin{aligned}
+        P(Y \leq 1|X) &= C_1 &= \frac{e^{-1.618 - 0.497 x_{20} - 0.167 x_{22} + 0.154 x_{24}}}{1 - e^{-1.618 - 0.497 x_{20} - 0.167 x_{22} + 0.154 x_{24}}} \\
+        P(Y \leq 2|X) &= C_2 &= \frac{e^{-0.681 - 0.497 x_{20} - 0.167 x_{22} + 0.154 x_{24}}}{1 - e^{-0.681 - 0.497 x_{20} - 0.167 x_{22} + 0.154 x_{24}}} \\
+        P(Y \leq 3|X) &= C_3 &= \frac{e^{0.438 - 0.497 x_{20} - 0.167 x_{22} + 0.154 x_{24}}}{1 - e^{0.438 - 0.497 x_{20} - 0.167 x_{22} + 0.154 x_{24}}} \\
+        P(Y \leq 4|X) &= C_4 &= \frac{e^{1.285 - 0.497 x_{20} - 0.167 x_{22} + 0.154 x_{24}}}{1 - e^{1.285 - 0.497 x_{20} - 0.167 x_{22} + 0.154 x_{24}}} \\
+    \end{aligned}
+    \end{equation*}
+}
+\end{test}
+
+\begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \tightlist
+    \item Uji Simultan
+    \begin{test}{
+    \begin{enumerate}
+        \item[-] Rumusan Hipotesis 
+        \begin{fleqn}[\parindent]
+            \begin{align*}
+            H_0 &: \beta_{1j} = \beta_{2j} = \beta_{3j} = 0,  \text{untuk semua j = 1}\\ 
+            H_1 &: \beta_{ij} \neq 0 \text{, paling sedikit 1 untuk i = 1, 2, 3 dan semua j = 1}
+            \end{align*}
+        \end{fleqn}
+        Interpretasi:
+        \begin{enumerate}
+        \item[$\square$] $H_0$ didefinisikan secara simultan variabel bebas/prediktor tidak berpengaruh terhadap variabel respon
+        \item[$\square$] $H_1$ didefinisikan secara simultan variabel bebas/prediktor berpengaruh terhadap variabel respon
+        \end{enumerate}
+    
+        \item[-] Taraf Signifikansi \\
+        $\alpha = 0.05$
+    
+        \item[-] Statistik Uji \\
+        Pada Tabel Model Fitting Information, dapat diperoleh : \\
+        G = 7.980, Nilai sig = 0.046 \\
+        Berdasarkan tabel F didapat : \\
+        $\chi$-tabel = $\chi_{\alpha, k}^2$ = $\chi_{0.05; 3}$ = 7.815
+    
+        \item[-] Daerah Kritis \\
+        $H_0$ ditolak jika $G > \chi_{\alpha, k}^2$ atau nilai sig $< \alpha$
+    
+        \item[-] Keputusan \\
+        $H_0$ ditolak karena $G > \chi_{\alpha, k}^2$, yaitu $7.980 > 7.815$
+    
+        \item[-] Kesimpulan \\
+        Pada taraf signifikansi 5\%, $H_0$ ditolak sehingga secara simultan variabel bebas/prediktor berpengaruh terhadap variabel respon. 
+    \end{enumerate}
+    }
+    \end{test}
+    
+    \item Uji Parsial
+    \begin{test}{
+    \begin{enumerate}
+        \item[-] Rumusan Hipotesis \\
+        \begin{fleqn}[\parindent]
+            \begin{equation*}
+            \begin{split}
+            &H_0 : \beta_{ij} = 0 \text{, untuk setiap i = 1, 2, 3, 4, 5, 6, 7 dan semua j = 1, 2, 3} \\ 
+            &H_1 : \beta_{ij} \neq 0 \text{, untuk setiap i = 1, 2, 3, 4, 5, 6, 7 dan semua j = 1, 2, 3} \\
+            \end{split}
+            \end{equation*}
+        \end{fleqn}
+        Interpretasi:
+        \begin{enumerate}
+        \item[$\square$] $H_0$ didefinisikan variabel bebas/prediktor tidak signifikan terhadap model
+        \item[$\square$] $H_1$ didefinisikan variabel bebas/prediktor signifikan terhadap model
+        \end{enumerate}
+    
+        \item[-] Taraf Signifikansi \\
+        $\alpha = 0.05$
+    
+        \item[-] Statistik Uji \\
+        Pada Tabel Parameter Estimates, dapat diperoleh : \\
+        $W_{20}$ = 7.262, $W_{22}$ = 0.851, $W_{24}$ = 0.687 
+        \\ Nilai sig 20 = 0.007, Nilai sig 22 = 0.356, Nilai sig 24 = 0.407 \\
+        Berdasarkan tabel F didapat : \\
+        $\chi$-tabel = $\chi_{\alpha, k}^2$ = $\chi_{0.05; 1}$ = 3.841
+    
+        \item[-] Daerah Kritis \\
+        $H_0$ ditolak jika $W_j > \chi_{\alpha, k}^2$ atau $|W_j^*| > Z_{\frac{\alpha}{2}}$ atau nilai sig $< \alpha$
+    
+        \item[-] Keputusan \\
+        $$\begin{array}{lllll}
+            \hline 
+            \text{Variabel} & \text{Nilai Wald} & \text{Sig} & \text{Keputusan}  \\
+            \hline 
+            W_{20} & 7.262 & 0.007 & H_0 \text{ ditolak} \\
+            W_{22} & 0.851 & 0.356 & H_0 \text{ gagal ditolak} \\
+            W_{24} & 0.687 & 0.407 & H_0 \text{ gagal ditolak} \\
+            \hline
+        \end{array}$$
+    
+        \item[-] Kesimpulan \\
+        Pada taraf signifikansi 5\%, Pada taraf signifikansi 5\%, variabel Pola Asuh dan Asupan Makanan $H_0$ tidak ditolak, sehingga dapat disimpulkan bahwa variabel Pola Asuh dan Asupan Makanan tidak signifikan terhadap model. Sedangkan variabel lainnya $H_0$ ditolak, sehingga dapat disimpulkan bahwa variabel Kelengkapan Imunisasi tidak signifikan terhadap model.
+    \end{enumerate}
+    }
+    \end{test}
+    
+    \item Uji Kesesuaian Model
+    \begin{test}{
+    \begin{enumerate}
+        \item[-] Rumusan Hipotesis \\
+        \begin{fleqn}[\parindent]
+            \begin{equation*}
+            \begin{split}
+            &H_0 : \text{Model sesuai (observasi dan prediksi tidak berbeda)} \\ 
+            &H_1 : \text{Model tidak sesuai (observasi dan prediksi berbeda)} \\
+            \end{split}
+            \end{equation*}
+        \end{fleqn}
+    
+        \item[-] Taraf Signifikansi \\
+        $\alpha = 0.05$
+    
+        \item[-] Statistik Uji \\
+        Pada Tabel Goodness-of-Fit, dapat diperoleh : \\
+        C = 87.716, Nilai sig = 0.000 \\
+        Berdasarkan tabel F didapat : \\
+        $\chi$-tabel = $\chi_{\alpha, k}^2$ = $\chi_{0.05; 25}$ = 37.652
+    
+        \item[-] Daerah Kritis \\
+        $H_0$ ditolak jika $C > \chi_{\alpha, k}^2$ atau nilai sig $< \alpha$
+    
+        \item[-] Keputusan \\
+        $H_0$ ditolak karena $C > \chi_{\alpha, k}^2$, yaitu $87.716 > 37.652$
+    
+        \item[-] Kesimpulan \\
+        Pada taraf signifikansi 5\%, $H_0$ ditolak sehingga model tidak sesuai (observasi dan prediksi berbeda).
+    \end{enumerate}
+    }
+    \end{test}
+    
+    \item Odds Ratio
+    \begin{test}{
+        Pada Tabel Parameter Estimates, dapat diperoleh : \\
+        $e^{\beta_{20}}$ = 0.608, $e^{\beta_{22}}$ = 0.846, $e^{\beta_{24}}$ = 1.166 
+    }
+    \end{test}
+
+\end{enumerate}    
