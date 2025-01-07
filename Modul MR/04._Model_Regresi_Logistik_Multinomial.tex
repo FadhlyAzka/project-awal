@@ -1,8 +1,14 @@
 \begin{sloppypar}
 Data multinomial merupakan data yang memiliki variabel hasil yang bersifat nominal atau polikotomi dengan lebih dari dua level. Model regresi logistik multinomial merupakan suatu metode analisis data yang digunakan untuk mencari hubungan antara variabel terikat (Y) yang bersifat polikotomus atau multinomial, yaitu (1, ..., J), dengan beberapa variabel bebas/predictor ($X_1, X_2, ..., X_n$). 
 Tujuan dari analisis regresi logistik multinomial adalah untuk menganalisis hubungan antara satu variabel terikat (Y) dan beberapa variabel bebas/predictor ($X_1, X_2, ..., X_n$), dengan variabel terikat (Y) berupa data kualitatif yang mempunyai kategori lebih dari 2.
-\\ Model regresi logistik diperoleh dari fungsi logistik dengan didefinisikan sebagai $$\pi_j(x) = \frac{e^{(\beta_0\ +\ \beta_{1j} x_1\ +\ \cdots\ +\ \beta_{pj} x_p)}}{1 + \sum_{j=1}^{J-1} e^{(\beta_0\ +\ \beta_{1j} x_1\ +\ \cdots\ +\ \beta_{pj} x_p)}}$$
-untuk j = (1, ..., J-1) dan j = J [level terakhir] ialah $$\pi_J(x) = \frac{1}{1 + \sum_{j=1}^{J-1} e^{(\beta_0\ +\ \beta_{1j} x_1\ +\ \cdots\ +\ \beta_{pj} x_p)}}$$
+\\ Model regresi logistik diperoleh dari fungsi logistik dengan didefinisikan sebagai
+\begin{equation}
+\pi_j(x) = \frac{e^{(\beta_0\ +\ \beta_{1j} x_1\ +\ \cdots\ +\ \beta_{pj} x_p)}}{1 + \sum_{j=1}^{J-1} e^{(\beta_0\ +\ \beta_{1j} x_1\ +\ \cdots\ +\ \beta_{pj} x_p)}}
+\end{equation}
+untuk j = (1, ..., J-1) dan j = J [level terakhir] ialah
+\begin{equation}
+\pi_J(x) = \frac{1}{1 + \sum_{j=1}^{J-1} e^{(\beta_0\ +\ \beta_{1j} x_1\ +\ \cdots\ +\ \beta_{pj} x_p)}}
+\end{equation}
 \end{sloppypar}
 \begin{test}{
     Pada Tabel Variables in the Equation, dapat diperoleh : \\
