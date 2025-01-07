@@ -1,9 +1,18 @@
 \begin{sloppypar}
 Data biner merupakan data yang hanya memiliki dua kemungkinan hasil yang secara umum dilambangkan dengan (sukses) dan (gagal) dengan peluang masing-masing sebesar p dan q = 1 - p. Model regresi logistik biner merupakan suatu metode analisis data yang digunakan untuk mencari hubungan antara variabel terikat (Y) yang bersifatbiner atau dikotomus dengan beberapa variabel bebas/predictor ($X_1, X_2, ..., X_n$).
 Tujuan dari analisis regresi logistik biner adalah untuk menganalisis hubungan antara variabel terikat (Y) dengan beberapa variabel bebas/predictor ($X_1, X_2, ..., X_n$), dengan variabel terikat (Y) berupa data kualitatif dikotomi yaitu bernilai 1 untuk menyatakan keberadaan sebuah karakteristik dan bernilai 0 untuk menyatakan ketidakberadaan sebuah karakteristik.
-\\ Fungsi logistik standar atau dengan nama lain fungsi sigmoid yang didefinisikan sebagai $$f(x) = \frac{1}{1 + e^{-x}}$$
-\\ Kemudian untuk membentuk model regresi logistik maka dilakukan transformasi logit dengan didefinisikan sebagai $$g(x) = \text{ln}\Big( {\frac{\pi_i}{1 - \pi_i}} \Big)$$
-\\ Model regresi logistik diperoleh dari fungsi logistik dengan didefinisikan sebagai $$\pi(x) = \frac{e^{(\beta_0\ +\ \beta_1 x_{1i}\ +\ \cdots\ +\ \beta_p x_{pi})}}{1 + e^{(\beta_0\ +\ \beta_1 x_{1i}\ +\ \cdots\ +\ \beta_p x_{pi})}}$$
+\\ Fungsi logistik standar atau dengan nama lain fungsi sigmoid yang didefinisikan sebagai
+\begin{equation}
+f(x) = \frac{1}{1 + e^{-x}}
+\end{equation}
+\\ Kemudian untuk membentuk model regresi logistik maka dilakukan transformasi logit dengan didefinisikan sebagai
+\begin{equation}
+g(x) = \text{ln}\Big( {\frac{\pi_i}{1 - \pi_i}} \Big)
+\end{equation}
+\\ Model regresi logistik diperoleh dari fungsi logistik dengan didefinisikan sebagai
+\begin{equation}
+\pi(x) = \frac{e^{(\beta_0\ +\ \beta_1 x_{1i}\ +\ \cdots\ +\ \beta_p x_{pi})}}{1 + e^{(\beta_0\ +\ \beta_1 x_{1i}\ +\ \cdots\ +\ \beta_p x_{pi})}}
+\end{equation}
 \end{sloppypar}
 \begin{test}{
     Pada Tabel Variables in the Equation, dapat diperoleh : \\
