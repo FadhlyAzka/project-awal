@@ -2,10 +2,15 @@
 Data ordinal merupakan data yang memiliki variabel hasil yang bersifat kategorik, memuat informasi tambahan berupa urutan kategori. Model regresi logistik ordinal merupakan suatu metode analisis data yang digunakan untuk mencari hubungan antara variabel terikat (Y) yang bersifat ordinal (memiliki tingkatan atau urutan), dengan beberapa variabel bebas/predictor ($X_1, X_2, ..., X_n$). 
 Tujuan dari analisis regresi logistik ordinal adalah untuk menganalisis hubungan antara satu variabel terikat (Y) dan beberapa variabel bebas/predictor ($X_1, X_2, ..., X_n$), dengan variabel terikat (Y) berupa data kualitatif berskala ordinal yang mempunyai kategori lebih dari 2.
 \\ Dari model logit dengan didefinisikan sebagai 
-\begin{align*}
+\begin{equation}
+\begin{aligned}
 \text{logit}(P(Y \leq j|X)) &= \text{log} \bigg( \frac{P(Y \leq j|X)}{P(Y > j|X)} \bigg) \\ &= \alpha_j\ -\ \beta_{1} x_1\ -\ \cdots\ -\ \beta_{p} x_p 
-\end{align*}
-untuk j = (1, ..., J). Maka model regresi logistik ordinal dapat dinyatakan sebagai $$P(Y \leq j|X) = \frac{e^{(\alpha_j\ -\ \beta_{1} x_1\ -\ \cdots\ -\ \beta_{p} x_p)}}{1 + e^{(\alpha_j\ -\ \beta_{1} x_1\ -\ \cdots\ -\ \beta_{p} x_p)}}$$
+\end{aligned}
+\end{equation}
+untuk j = (1, ..., J). Maka model regresi logistik ordinal dapat dinyatakan sebagai
+\begin{equation}
+P(Y \leq j|X) = \frac{e^{(\alpha_j\ -\ \beta_{1} x_1\ -\ \cdots\ -\ \beta_{p} x_p)}}{1 + e^{(\alpha_j\ -\ \beta_{1} x_1\ -\ \cdots\ -\ \beta_{p} x_p)}}
+\end{equation}
 \end{sloppypar}
 \begin{test}{
     Pada Tabel Parameter Estimates, dapat diperoleh : \\
